@@ -1,0 +1,106 @@
+h25, h11 {
+    color:red;
+}
+
+h2 {
+    padding: 0 0 0 200px;
+}
+
+.panel-heading{
+    font-size:100%;
+    text-align: center;
+}
+
+.form-group{
+    width: 80%;
+    text-align: left;
+    padding: 0 0 0 200px;
+}
+
+.btnb{
+    width: 20%;
+    background-color: rgba(112, 108, 108, 0.479);
+    padding-bottom: 15px 15px;
+    font-size: 13px;
+    text-align: center;
+    font-weight: 70;
+    height: 36px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+}
+
+.nav-menu {
+    padding: 30px 0 0 0;
+    background-color: rgb(85, 85, 85);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 150px;
+    transition: all ease-in-out 0.5s;
+    z-index: 9997;
+    transition: all 0.5s;
+    padding: 0 15px;
+    overflow-y: auto;
+}
+
+.nav-menu * {
+    margin: 40;
+    padding: 0;
+    list-style: none;
+}
+
+.nav {
+    display: flex;
+    color: #d1d2d6;
+    padding: 20px 20px 20px 20px;
+    transition: 0.3s;
+    font-size: 18px;
+    background-color: rgb(85, 85, 85);
+    width: 100%;
+    text-align: center;
+    border: none;
+}
+
+.form-control-input-md-b{
+    width: 200%;
+    padding: 5px 10px 5px 10px;
+}
+
+.tba {
+    text-align: left;
+    height: 30px; 
+    font-size: 15px;
+    border: none;
+    background: none;
+    padding: 10px 53px 10px 0;
+}
+
+tr:hover{
+    background: none;
+}
+
+.b{
+    padding: 20px 100px 267px 100px;
+}
+
+.profile-img{
+    width: 130px;
+    height: 130px;
+    margin: 0px auto 10px;
+    display: block;
+    border-radius: 5px;
+    float: right;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+}
+
+.form-control-type{
+    width: 62.5%;
+    padding: 2.5px;
+}
