@@ -3,7 +3,7 @@ import "./styles.css";
 import avatar from "../../assets/img/avatar.jpg";
 import api from "../../services/api";
 
-export default function FormCliente() {
+export default function FormCliente({history}) {
 
     const [ cnpj, setCnpj ] = useState("");
     const [ nome, setNome ] = useState("");
@@ -25,21 +25,30 @@ export default function FormCliente() {
     
         useEffect(() => {
             async function handleLoad(event) {
-                const response = await api.post("/novoCli");
+                const response = await api.get("/novoCli");
                 setFormcliente(response.data);
-        }
-        handleLoad();
-        });
 
-    function handleSubmit(event) {
-        event.preventDefault()                
-            const data= { 
-            cnpj:cnpj, nome_cli:nome, data_fun:datafun, tipo:tipo, tel_cli:tel, email:email, cep:cep, 
-            logradouro:log, num:num, bairro:bai, cidade:cid, estado:est, senha:senha, fk_nome_pes:nopes
+                
             }
-        api.post("/novoCli", data);
-    }
+            handleLoad();
+        });
+        
+        async function handleSubmit(event) {
+            event.preventDefault()                
+            const data= { 
+                cnpj:cnpj, nome_cli:nome, data_fun:datafun, tipo:tipo, tel_cli:tel, email:email, cep:cep, 
+                logradouro:log, num:num, bairro:bai, cidade:cid, estado:est, senha:senha, fk_nome_pes:nopes
+            }
+            }
+            api.post("/novoCli", data);
+            if (response.data.length === 1){
+                console.log(response.data)
+            history.push("/cliente");
+            alert("Usuário cadastrado com sucesso!!!");
+            return;    
+            }
 
+    }
 
 
 
@@ -75,7 +84,7 @@ export default function FormCliente() {
             </ul>
         </nav>
 
-<form class="form-horizontal">
+<form class="form-horizontal" onSubmit={handleSubmit}>
 <fieldset>
 
     <img id="profile-img" class="profile-img" src={avatar} alt="texto" />
@@ -143,7 +152,7 @@ export default function FormCliente() {
                 <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
                 <input id="prependedtext" name="prependedtext" class="form-control" placeholder="XX XXXXX-XXXX" 
-                required type="text" maxlength="10" pattern="\[0-9]{2}\[0-9]{4,6}-[0-9]{3,4}$" 
+                required type="text" maxlength="10" 
                 onChange={event => setTel(event.target.value)}/>
                 </div>
                 </div>
@@ -156,8 +165,8 @@ export default function FormCliente() {
     <div class="col-md-2">
         <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        <input id="prependedtext" name="prependedtext" class="form-control-input-md" 
-        placeholder="email@email.com" required type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+        <input id="prependedtext." name="prependedtext." class="form-control-input-md" 
+        placeholder="email@email.com" required type="email"  
         onChange={event => setEmail(event.target.value)}/>
         </div>
     </div>

@@ -3,26 +3,36 @@ import "./styles.css";
 import avatar from "../../assets/img/avatar.jpg";
 import api from "../../services/api";
 
-export default function FormPessoa() {
+export default function FormPessoa(history) {
+
     const [ cpf, setCpf ] = useState("");
     const [ nome, setNome ] = useState("");
     const [ datnas, setDatnas ] = useState("");
     const [ tel, setTel ] = useState("");
     const [ email, setEmail ] = useState("");
     const [ button, setButton] = useState("");
+    const [ formpes, setFormpes] = useState ("");
 
+    useEffect(() => {
+    async function handleLoad(event) {
+        const response = await api.post("/novaPesRel");
+        setFormpes(response.data);
+    }
+    handleLoad();
+    });
+
+    async function handleSubmit(event) {
+    event.preventDefault()   
     const data= { 
         cpf:cpf, nome_pes:nome, data_nasc:datnas, tel_pes:tel, email:email
     }
-    api.post("/novaPesRel", data);
-
-        useEffect(() => {
-        async function handleLoad(event) {
-            const response = await api.post("/novoCli");
-            setPessoas(response.data);
-        }
-        handleLoad();
-        });
+    const response = await api.post("/novaPesRel", data);
+    console.log("/pessoa");
+    if (response.data.length === 1){
+    alert("Pessoa Relacionada cadastrada com sucesso!!!");
+    history.push("/pessoa");
+    }
+}
 
 
 
@@ -44,7 +54,7 @@ export default function FormPessoa() {
             </li>
             <li>
                 <button class="nav" type="button">
-                <i class="bx bx-book-content"></i>{" "}
+                <i class="bx bx-book-content"></i>
                 <span>Clientes Cadastrados</span>
                 </button>
             </li>
@@ -56,7 +66,7 @@ export default function FormPessoa() {
             </ul>
         </nav>
 
-<form class="form-horizontal">
+<form class="form-horizontal" onSubmit={handleSubmit}>
 <fieldset class="b">
 
     <img id="profile-img" class="profile-img" src={avatar} alt="texto" />
@@ -79,7 +89,7 @@ export default function FormPessoa() {
                 <label class="col-md-1 control-label" for="cpf">CPF<h11>*</h11></label>  
                 <div class="col-md-22">
                 <input id="cpj" name="cpf" placeholder="Apenas números" class="form-control input-md" 
-                required type="text" maxlength="14" pattern="[0-9]+$" 
+                required type="text" maxlength="11"  
                 onChange={event => setCpf(event.target.value)}/>
                 </div>
                 </div>
@@ -102,7 +112,7 @@ export default function FormPessoa() {
     <div class="input-group">
     <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
         <input id="prependedtext" name="prependedtext" class="form-control" placeholder="XX XXXXX-XXXX" 
-        required type="text" maxlength="10" pattern="\[0-9]{2}\[0-9]{4,6}-[0-9]{3,4}$" 
+        required type="text" maxlength="10"
         onChange={event => setTel(event.target.value)}/>
     </div>
     </div>
@@ -117,7 +127,6 @@ export default function FormPessoa() {
                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                 <input id="prependedtext" name="prependedtext" class="form-control-input-md-b" 
                 placeholder="email@email.com" required type="text" 
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" onChange={event => setNome(event.target.value)}
                 onChange={event => setEmail(event.target.value)}/>
                 </div>
             </div>
