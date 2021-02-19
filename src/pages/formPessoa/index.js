@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import avatar from "../../assets/img/avatar.jpg";
+import api from "../../services/api";
 
-export default function formCliente() {
+export default function FormPessoa() {
+    const [ cpf, setCpf ] = useState("");
+    const [ nome, setNome ] = useState("");
+    const [ datnas, setDatnas ] = useState("");
+    const [ tel, setTel ] = useState("");
+    const [ email, setEmail ] = useState("");
+    const [ button, setButton] = useState("");
+
+    const data= { 
+        cpf:cpf, nome_pes:nome, data_nasc:datnas, tel_pes:tel, email:email
+    }
+    api.post("/novaPesRel", data);
+
+        useEffect(() => {
+        async function handleLoad(event) {
+            const response = await api.post("/novoCli");
+            setPessoas(response.data);
+        }
+        handleLoad();
+        });
+
+
+
     return (
 <>
 
@@ -10,7 +33,7 @@ export default function formCliente() {
             <ul>
             <li>
                 <button class="nav" type="button">
-                <i class="bx bx-home"></i>Cadastrar Cliente <span></span>
+                <i class="bx bx-home"></i><span>Cadastrar Cliente</span>
                 </button>
             </li>
 
@@ -45,7 +68,8 @@ export default function formCliente() {
     <div class="form-group">
     <label class="col-md-2 control-label" for="Nome">Nome<h11>*</h11></label>  
     <div class="col-md-22">
-    <input id="nomep" name="nomep" placeholder="" class="form-control-input-md" required type="text"/>
+    <input id="nomep" name="nomep" placeholder="" class="form-control-input-md" 
+    required type="text" onChange={event => setNome(event.target.value)}/>
     </div>
     </div>
 
@@ -54,7 +78,9 @@ export default function formCliente() {
                 <div class="form-group">
                 <label class="col-md-1 control-label" for="cpf">CPF<h11>*</h11></label>  
                 <div class="col-md-22">
-                <input id="cpj" name="cpf" placeholder="Apenas números" class="form-control input-md" required type="text" maxlength="14" pattern="[0-9]+$" />
+                <input id="cpj" name="cpf" placeholder="Apenas números" class="form-control input-md" 
+                required type="text" maxlength="14" pattern="[0-9]+$" 
+                onChange={event => setCpf(event.target.value)}/>
                 </div>
                 </div>
             </td>
@@ -62,7 +88,9 @@ export default function formCliente() {
                 <div class="form-group">
                 <label class="col-md-1 control-label" for="Nome">Data de Nascimento<h11>*</h11></label>  
                 <div class="col-md-2">
-                <input id="dtnasc" name="dtnasc" placeholder="AAAA/MM/DD" class="form-control input-md" required type="text" maxlength="10" onBlur="showhide()" />
+                <input id="dtnasc" name="dtnasc" placeholder="AAAA/MM/DD" class="form-control input-md"
+                required type="text" maxlength="10" onBlur="showhide()" 
+                onChange={event => setDatnas(event.target.value)}/>
                 </div>
                 </div>
             </td>
@@ -73,7 +101,9 @@ export default function formCliente() {
     <div class="col-md-2.5">
     <div class="input-group">
     <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-        <input id="prependedtext" name="prependedtext" class="form-control" placeholder="XX XXXXX-XXXX" required type="text" maxlength="10" pattern="\[0-9]{2}\[0-9]{4,6}-[0-9]{3,4}$" />
+        <input id="prependedtext" name="prependedtext" class="form-control" placeholder="XX XXXXX-XXXX" 
+        required type="text" maxlength="10" pattern="\[0-9]{2}\[0-9]{4,6}-[0-9]{3,4}$" 
+        onChange={event => setTel(event.target.value)}/>
     </div>
     </div>
     </div>
@@ -85,7 +115,10 @@ export default function formCliente() {
             <div class="col-md-2">
                 <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                <input id="prependedtext" name="prependedtext" class="form-control-input-md-b" placeholder="email@email.com" required type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                <input id="prependedtext" name="prependedtext" class="form-control-input-md-b" 
+                placeholder="email@email.com" required type="text" 
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" onChange={event => setNome(event.target.value)}
+                onChange={event => setEmail(event.target.value)}/>
                 </div>
             </div>
             </div>
