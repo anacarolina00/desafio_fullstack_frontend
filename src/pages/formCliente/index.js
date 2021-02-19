@@ -26,9 +26,7 @@ export default function FormCliente({history}) {
         useEffect(() => {
             async function handleLoad(event) {
                 const response = await api.get("/novoCli");
-                setFormcliente(response.data);
-
-                
+                setFormcliente(response.data);             
             }
             handleLoad();
         });
@@ -39,15 +37,13 @@ export default function FormCliente({history}) {
                 cnpj:cnpj, nome_cli:nome, data_fun:datafun, tipo:tipo, tel_cli:tel, email:email, cep:cep, 
                 logradouro:log, num:num, bairro:bai, cidade:cid, estado:est, senha:senha, fk_nome_pes:nopes
             }
-            }
-            api.post("/novoCli", data);
+            const response = await api.post("/novoCli", data);
+            console.log(response.data);
             if (response.data.length === 1){
-                console.log(response.data)
-            history.push("/cliente");
             alert("Usuário cadastrado com sucesso!!!");
-            return;    
+            history.push("/cliente");
+            
             }
-
     }
 
 
@@ -281,7 +277,8 @@ export default function FormCliente({history}) {
     <div class="form-group">
     <label class="col-md-2 control-label" for="Cadastrar"></label>
     <div class="col-md-0">
-        <button id="Cadastrar" name="Cadastrar" class="btna"  onChange={event => setButton(event.target.value)}
+        <button id="Cadastrar" name="Cadastrar" class="btna"  
+        onChange={event => setButton(event.target.value)}
         type="Submit"><b>Cadastrar</b></button>
     </div>
     </div>

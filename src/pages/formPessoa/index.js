@@ -3,7 +3,7 @@ import "./styles.css";
 import avatar from "../../assets/img/avatar.jpg";
 import api from "../../services/api";
 
-export default function FormPessoa(history) {
+export default function FormPessoa({history}) {
 
     const [ cpf, setCpf ] = useState("");
     const [ nome, setNome ] = useState("");
@@ -27,7 +27,7 @@ export default function FormPessoa(history) {
         cpf:cpf, nome_pes:nome, data_nasc:datnas, tel_pes:tel, email:email
     }
     const response = await api.post("/novaPesRel", data);
-    console.log("/pessoa");
+    console.log(response.data);
     if (response.data.length === 1){
     alert("Pessoa Relacionada cadastrada com sucesso!!!");
     history.push("/pessoa");
@@ -89,7 +89,7 @@ export default function FormPessoa(history) {
                 <label class="col-md-1 control-label" for="cpf">CPF<h11>*</h11></label>  
                 <div class="col-md-22">
                 <input id="cpj" name="cpf" placeholder="Apenas números" class="form-control input-md" 
-                required type="text" maxlength="11"  
+                required type="text" maxlength="11" 
                 onChange={event => setCpf(event.target.value)}/>
                 </div>
                 </div>
@@ -139,7 +139,9 @@ export default function FormPessoa(history) {
     <div class="form-group">
     <label class="col-md-2 control-label" for="Cadastrar"></label>
     <div class="col-md-0">
-        <button id="Cadastrar" name="Cadastrar" class="btnb" type="Submit"><b>Cadastrar</b></button>
+        <button id="Cadastrar" name="Cadastrar" class="btnb" 
+        onChange={event => setButton(event.target.value)}
+        type="Submit"><b>Cadastrar</b></button>
     </div>
     </div>
 
